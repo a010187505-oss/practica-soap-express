@@ -1,0 +1,52 @@
+<definitions name="ConversionesService"
+    targetNamespace="http://localhost:8000/soap/conversiones"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://localhost:8000/soap/conversiones"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <message name="CelsiusAFahrenheitRequest">
+        <part name="celsius" type="xsd:float"/>
+    </message>
+    <message name="CelsiusAFahrenheitResponse">
+        <part name="resultado" type="xsd:float"/>
+    </message>
+
+    <message name="KilometrosAMillasRequest">
+        <part name="kilometros" type="xsd:float"/>
+    </message>
+    <message name="KilometrosAMillasResponse">
+        <part name="resultado" type="xsd:float"/>
+    </message>
+
+    <portType name="ConversionesPortType">
+        <operation name="CelsiusAFahrenheit">
+            <input message="tns:CelsiusAFahrenheitRequest"/>
+            <output message="tns:CelsiusAFahrenheitResponse"/>
+        </operation>
+        <operation name="KilometrosAMillas">
+            <input message="tns:KilometrosAMillasRequest"/>
+            <output message="tns:KilometrosAMillasResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="ConversionesBinding" type="tns:ConversionesPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CelsiusAFahrenheit">
+            <soap:operation soapAction="CelsiusAFahrenheit"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="KilometrosAMillas">
+            <soap:operation soapAction="KilometrosAMillas"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+    </binding>
+
+    <service name="ConversionesService">
+        <port name="ConversionesPort" binding="tns:ConversionesBinding">
+            <soap:address location="http://localhost:8000/soap/conversiones"/>
+        </port>
+    </service>
+</definitions>
